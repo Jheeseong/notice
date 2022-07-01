@@ -3,11 +3,12 @@ package notice.notice.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+
+import java.time.LocalDateTime;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter @Setter
@@ -23,10 +24,18 @@ public class Board {
     private String content;
 
     @NotEmpty
-    private String writer;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "member_id")
+    private Member writer;
 
-    private Long regDate;
+    private LocalDateTime regDate;
 
     private Long viewCnt;
+
+    //연관관계 메서드
+    public void setMember(Member writer) {
+        this.writer = writer;
+        writer.getIdName();
+    }
 
 }

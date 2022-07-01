@@ -2,6 +2,7 @@ package notice.notice.controller;
 
 import lombok.RequiredArgsConstructor;
 import notice.notice.domain.Board;
+import notice.notice.domain.Member;
 import notice.notice.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class BoardController {
     @GetMapping("/boards/new")
     public String createBoard(Model model) {
         model.addAttribute("boardForm", new BoardForm());
+        model.addAttribute("idName", new Member().getIdName());
         return "boards/createBoardForm";
     }
 
