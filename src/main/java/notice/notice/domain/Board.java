@@ -38,4 +38,14 @@ public class Board {
         writer.getIdName();
     }
 
+    public static Board createBoard(Member member, String title, String content) {
+        Board board = new Board();
+        board.setMember(member);
+        board.setTitle(title);
+        board.setContent(content);
+        board.setRegDate(LocalDateTime.now());
+        board.setViewCnt(10L);
+        return board;
+    }
+
 }

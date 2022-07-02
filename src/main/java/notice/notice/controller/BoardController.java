@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import notice.notice.domain.Board;
 import notice.notice.domain.Member;
 import notice.notice.service.BoardService;
+import notice.notice.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,11 +18,11 @@ import javax.validation.Valid;
 public class BoardController {
 
     private final BoardService boardService;
+    private final MemberService memberService;
 
     @GetMapping("/boards/new")
     public String createBoard(Model model) {
         model.addAttribute("boardForm", new BoardForm());
-        model.addAttribute("idName", new Member().getIdName());
         return "boards/createBoardForm";
     }
 
