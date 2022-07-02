@@ -23,7 +23,6 @@ public class Board {
 
     private String content;
 
-    @NotEmpty
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member writer;
@@ -40,7 +39,7 @@ public class Board {
 
     public static Board createBoard(Member member, String title, String content) {
         Board board = new Board();
-        board.setMember(member);
+        board.setWriter(member);
         board.setTitle(title);
         board.setContent(content);
         board.setRegDate(LocalDateTime.now());

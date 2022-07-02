@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,9 +35,11 @@ public class BoardServiceTest {
 
         Long boardId = boardService.join(board);
 
+        em.flush();
         Board getBoard = boardRepository.findOne(boardId);
 
-        Assertions.assertEquals(boardId, getBoard);
+        System.out.println("Board= " + getBoard.toString());
+        Assertions.assertEquals(board, getBoard);
     }
 
     private Member createMember() {
@@ -44,6 +47,7 @@ public class BoardServiceTest {
         member.setIdName("asdf");
         member.setPw("adfa");
         member.setAddress(new Address("1234", "서울","경기도"));
+        member.setRegDate(LocalDateTime.now());
         em.persist(member);
         return member;
     }
