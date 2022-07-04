@@ -25,25 +25,25 @@
         <h1>게시글 등록</h1>
     </div>
     <div class="starter-template">
-        <form class="form-horizontal" th:action="@{/boards/new}" th:object="${boardForm}" method="post">
+        <form class="form-horizontal" th:action="@{/boards/new}" th:object="${form}" method="post">
             <div class="form-group">
-                <label style="float: left" for="title" class="col-sm-2 control-label">제목</label>
+                <label style="float: left" th:for="title" class="col-sm-2 control-label">제목</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <input type="text" class="form-control" id="title" name="title" placeholder="제목"/>
+                    <input type="text" th:field="*{title}" class="form-control"  placeholder="제목"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label style="float: left" for="idName" class="col-sm-2 control-label">작성자</label>
+                <label style="float: left" th:for="idName" class="col-sm-2 control-label">작성자</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <input type="text" class="form-control" id="idName" name="idName" th:value="${member.idName}"/>
+                    <input type="text" th:field="*{idName}" class="form-control" placeholder="작성자"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label style="float: left" for="content" class="col-sm-2 control-label">내용</label>
+                <label style="float: left" th:for="content" class="col-sm-2 control-label">내용</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="content" name="content" placeholder="내용을 입력해 주세요."></textarea>
+                    <textarea type = "text" th:field="*{content}" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
                 </div>
             </div>
 

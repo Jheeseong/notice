@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -21,13 +22,18 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
 
-    @GetMapping("/boards/new")
-    public String createBoard(@ModelAttribute("member") Member member, Model model) {
-        model.addAttribute("boardForm", new BoardForm());
+    @GetMapping("/boards/{memberId}/new")
+    public String createBoard(@PathVariable("memberId") Long memberId, Model model) {
+        Member member = memberService.findOne(memberId);
+
+        BoardForm form = new BoardForm();
+        form.setIdName(member.getIdName());
+
+        model.addAttribute("form", form);
         return "boards/createBoardForm";
     }
 
-    @PostMapping("/boards/new")
+    @PostMapping("/boards/{memberId}/new")
     public String create(@Valid BoardForm form, BindingResult result) {
 
         if (result.hasErrors()) {
