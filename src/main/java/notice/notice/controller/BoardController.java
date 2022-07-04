@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,6 +46,13 @@ public class BoardController {
         board.setTitle(form.getTitle());
 
         boardService.join(board);
-        return "redirect:/";
+        return "redirect:/boards";
+    }
+
+    @GetMapping("/boards")
+    public String list(Model model) {
+        List<Board> boards = boardService.findBoards();
+        model.addAttribute("boardList", boards);
+        return "boards/BoardList";
     }
 }
