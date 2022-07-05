@@ -33,7 +33,7 @@ public class BoardServiceTest {
 
         Board board = Board.createBoard(member,"adfa","adsfa");
 
-        Long boardId = boardService.join(board);
+        Long boardId = boardService.join(member.getId(), board.getTitle(), board.getContent());
 
         em.flush();
         Board getBoard = boardRepository.findOne(boardId);

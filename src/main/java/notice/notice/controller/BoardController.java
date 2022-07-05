@@ -8,10 +8,7 @@ import notice.notice.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,17 +32,18 @@ public class BoardController {
     }
 
     @PostMapping("/boards/{memberId}/new")
-    public String create(@Valid BoardForm form, BindingResult result) {
+    public String create(@PathVariable("memberId") Long memberId,
+                         @Valid BoardForm form,
+                         BindingResult result) {
 
         if (result.hasErrors()) {
             return "boards/createBoardForm";
         }
 
-        Board board = new Board();
-        board.setContent(form.getContent());
-        board.setTitle(form.getTitle());
+        String title = form.getTitle();
+        String content = form.getContent();
 
-        boardService.join(board);
+        boardService.join(memberId, title, content);
         return "redirect:/boards";
     }
 

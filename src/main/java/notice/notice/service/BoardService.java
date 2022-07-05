@@ -2,7 +2,9 @@ package notice.notice.service;
 
 import lombok.RequiredArgsConstructor;
 import notice.notice.domain.Board;
+import notice.notice.domain.Member;
 import notice.notice.repository.BoardRepository;
+import notice.notice.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +16,12 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
-    public Long join(Board board) {
+    public Long join(Long memberId, String title, String content) {
+        Member member = memberRepository.findOne(memberId);
+        Board board = Board.createBoard(member, title, content);
         boardRepository.save(board);
         return board.getId();
     }
