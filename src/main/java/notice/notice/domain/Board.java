@@ -1,50 +1,45 @@
 package notice.notice.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-
-import java.time.LocalDateTime;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Getter @Setter
-public class Board {
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "board")
+public class Board extends Time {
 
-    @Id @GeneratedValue
-    @Column(name = "board_id")
+    @Id // PK Field
+    @GeneratedValue(strategy= GenerationType.IDENTITY)  // PK의 생성 규칙
     private Long id;
 
-    @NotEmpty
+    @Column(length = 10, nullable = false)
+    private String writer;
+
+    @Column(length = 100, nullable = false)
     private String title;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member writer;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 
-    private LocalDateTime regDate;
+    // Java 디자인 패턴, 생성 시점에 값을 채워줌
+    @Builder
+    public Board(Long id, String title, String content, String writer, User user) {
+        // Assert 구문으로 안전한 객체 생성 패턴을 구현
+        Assert.hasText(writer, "writer must not be empty");
+        Assert.hasText(title, "title must not be empty");
+        Assert.hasText(content, "content must not be empty");
 
-    private Long viewCnt;
-
-    //연관관계 메서드
-    public void setMember(Member writer) {
+        this.id = id;
         this.writer = writer;
-        writer.getIdName();
-    }
-
-    public static Board createBoard(Member member, String title, String content) {
-        Board board = new Board();
-        board.setWriter(member);
-        board.setTitle(title);
-        board.setContent(content);
-        board.setRegDate(LocalDateTime.now());
-        board.setViewCnt(10L);
-        return board;
+        this.title = title;
+        this.content = content;
+        this.user = user;
     }
 
 }

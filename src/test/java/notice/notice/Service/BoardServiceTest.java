@@ -1,9 +1,6 @@
 package notice.notice.Service;
 
-import notice.notice.domain.Address;
 import notice.notice.domain.Board;
-import notice.notice.domain.Member;
-import notice.notice.repository.BoardRepository;
 import notice.notice.service.BoardService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
