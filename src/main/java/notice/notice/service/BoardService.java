@@ -29,7 +29,7 @@ public class BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
-                .createDate(board.getCreatedDate())
+                .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
                 .build();
     }
@@ -38,7 +38,7 @@ public class BoardService {
     @Transactional
     public List<BoardDto> getBoardList(Integer pageNum) {
         Page<Board> page = boardRepository.findAll(PageRequest.of(
-                pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
+                pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createdDate")));
 
         List<Board> bordEntities = page.getContent();
         List<BoardDto> boardDtoList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
-                .createDate(board.getCreatedDate())
+                .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
                 .build();
 
