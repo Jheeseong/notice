@@ -2,6 +2,7 @@ package notice.notice.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import notice.notice.config.auth.LoginUser;
 import notice.notice.config.auth.SessionUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,19 +14,17 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final HttpSession httpSession;
-
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, @LoginUser SessionUser user) {
 
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
-        if (user != null) {
-            model.addAttribute("userName", user.getName());
-            model.addAttribute("userImg", user.getPicture());
-
+        if (user == null) {
+            return "home";
         }
 
-        return "home";
+        model.addAttribute("userName", user.getName());
+        model.addAttribute("userImg", user.getPicture());
+
+        return "loginHome";
     }
 }
