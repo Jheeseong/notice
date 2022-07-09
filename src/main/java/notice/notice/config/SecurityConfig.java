@@ -1,6 +1,7 @@
 package notice.notice.config;
 
 import lombok.RequiredArgsConstructor;
+import notice.notice.domain.Role;
 import notice.notice.service.CustomOAuth2UserService;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +18,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/Savory-gh-pages/**").permitAll()
+                .antMatchers("/", "/css/**", "/js/**", "/h2-console/**").permitAll()
+                .antMatchers("board/**").hasRole(Role.USER.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
