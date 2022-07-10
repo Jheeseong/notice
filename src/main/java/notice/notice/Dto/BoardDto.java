@@ -1,7 +1,7 @@
 package notice.notice.Dto;
 
 import lombok.*;
-import notice.notice.domain.Board;
+import notice.notice.domain.board.Board;
 import java.time.LocalDateTime;
 
 @Getter

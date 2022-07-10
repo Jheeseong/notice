@@ -1,15 +1,22 @@
-package notice.notice.domain;
+package notice.notice.domain.board;
 
 import lombok.*;
+import notice.notice.domain.Category;
+import notice.notice.domain.Time;
+import notice.notice.domain.User;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "board")
-public class Board extends Time {
+public abstract class Board extends Time {
 
     @Id // PK Field
     @GeneratedValue(strategy= GenerationType.IDENTITY)  // PK의 생성 규칙
@@ -26,6 +33,9 @@ public class Board extends Time {
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder

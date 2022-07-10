@@ -1,6 +1,6 @@
 package notice.notice.repository;
 
-import notice.notice.domain.Board;
+import notice.notice.domain.board.Board;
 import notice.notice.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

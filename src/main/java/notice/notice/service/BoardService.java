@@ -2,7 +2,7 @@ package notice.notice.service;
 
 import lombok.AllArgsConstructor;
 import notice.notice.Dto.BoardDto;
-import notice.notice.domain.Board;
+import notice.notice.domain.board.Board;
 import notice.notice.repository.BoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
