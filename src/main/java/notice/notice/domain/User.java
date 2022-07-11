@@ -1,5 +1,6 @@
 package notice.notice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,8 @@ import javax.persistence.*;
 public class User extends Time {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false)
@@ -29,6 +31,10 @@ public class User extends Time {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Board board;
 
     @Builder
     public User(String name, String email, String picture, Role role) {

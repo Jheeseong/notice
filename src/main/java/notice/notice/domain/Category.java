@@ -3,17 +3,14 @@ package notice.notice.domain;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import notice.notice.domain.board.Board;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "category")
-public class Category {
+public class Category extends Time{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -21,14 +18,13 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category")
-    private List<Board> boards = new ArrayList<>();
+    private Long parentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Category parent;
+    public Category(String name, Long parentId) {
+        this.name = name;
+        this.parentId = parentId;
+    }
 
-    @OneToMany(mappedBy = "parent")
-    private List<Category> child = new ArrayList<>();
+
 
 }

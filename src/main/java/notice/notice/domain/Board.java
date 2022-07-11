@@ -1,4 +1,4 @@
-package notice.notice.domain.board;
+package notice.notice.domain;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "board")
@@ -32,15 +30,17 @@ public class Board extends Time {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    @OneToMany
+    @JoinColumn(name = "category_id")
+    private List<Category> categoryList;
 
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder
-    public Board(Long id, String title, String content, String writer, User user, Category category) {
+    public Board(Long id, String title, String content, String writer, User user, List<Category> categoryList) {
         // Assert 구문으로 안전한 객체 생성 패턴을 구현
         Assert.hasText(writer, "writer must not be empty");
         Assert.hasText(title, "title must not be empty");
@@ -51,7 +51,7 @@ public class Board extends Time {
         this.title = title;
         this.content = content;
         this.user = user;
-        this.category = category;
+        this.categoryList = categoryList;
     }
 
 }

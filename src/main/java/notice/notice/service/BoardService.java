@@ -2,7 +2,7 @@ package notice.notice.service;
 
 import lombok.AllArgsConstructor;
 import notice.notice.Dto.BoardDto;
-import notice.notice.domain.board.Board;
+import notice.notice.domain.Board;
 import notice.notice.repository.BoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,20 +50,7 @@ public class BoardService {
         return boardDtoList;
     }
 
-    @Transactional
-    public List<BoardDto> getCategoryBoardList(Integer pageNum, String keyword) {
-        Page<Board> page = boardRepository.findByCategoryContaining(PageRequest.of(
-                pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createdDate")), keyword);
 
-        List<Board> bordEntities = page.getContent();
-        List<BoardDto> boardDtoList = new ArrayList<>();
-
-        for (Board board : bordEntities) {
-            boardDtoList.add(this.convertEntityToDto(board));
-        }
-
-        return boardDtoList;
-    }
 
     @Transactional
     public BoardDto getPost(Long id) {

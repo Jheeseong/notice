@@ -2,8 +2,9 @@ package notice.notice.Dto;
 
 import lombok.*;
 import notice.notice.domain.Category;
-import notice.notice.domain.board.Board;
+import notice.notice.domain.Board;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class BoardDto {
 
     private String content;
 
-    private Category category;
+    private List<Category> categoryList;
 
     private LocalDateTime createdDate;
 
@@ -30,19 +31,19 @@ public class BoardDto {
                 .id(id)
                 .writer(writer)
                 .title(title)
+                .categoryList(categoryList)
                 .content(content)
-                .category(category)
                 .build();
         return board;
     }
 
     @Builder
-    public BoardDto(Long id, String writer, String title, String content, Category category,LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public BoardDto(Long id, String writer, String title, String content, List<Category> categoryList,LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
-        this.category = category;
+        this.categoryList = categoryList;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }
