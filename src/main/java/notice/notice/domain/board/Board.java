@@ -1,6 +1,7 @@
 package notice.notice.domain.board;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import notice.notice.domain.Category;
 import notice.notice.domain.Time;
 import notice.notice.domain.User;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "board")
-public abstract class Board extends Time {
+public class Board extends Time {
 
     @Id // PK Field
     @GeneratedValue(strategy= GenerationType.IDENTITY)  // PK의 생성 규칙
@@ -39,7 +40,7 @@ public abstract class Board extends Time {
 
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder
-    public Board(Long id, String title, String content, String writer, User user) {
+    public Board(Long id, String title, String content, String writer, User user, Category category) {
         // Assert 구문으로 안전한 객체 생성 패턴을 구현
         Assert.hasText(writer, "writer must not be empty");
         Assert.hasText(title, "title must not be empty");
@@ -50,6 +51,7 @@ public abstract class Board extends Time {
         this.title = title;
         this.content = content;
         this.user = user;
+        this.category = category;
     }
 
 }

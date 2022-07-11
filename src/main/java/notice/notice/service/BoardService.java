@@ -51,6 +51,21 @@ public class BoardService {
     }
 
     @Transactional
+    public List<BoardDto> getCategoryBoardList(Integer pageNum, String keyword) {
+        Page<Board> page = boardRepository.findByCategoryContaining(PageRequest.of(
+                pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createdDate")), keyword);
+
+        List<Board> bordEntities = page.getContent();
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board board : bordEntities) {
+            boardDtoList.add(this.convertEntityToDto(board));
+        }
+
+        return boardDtoList;
+    }
+
+    @Transactional
     public BoardDto getPost(Long id) {
         Optional<Board> boardWrapper = boardRepository.findById(id);
         Board board = boardWrapper.get();
