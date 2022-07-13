@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import notice.notice.Dto.BoardDto;
 import notice.notice.domain.Board;
 import notice.notice.repository.BoardRepository;
+import notice.notice.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class BoardService {
 
     private BoardRepository boardRepository;
+    private UserRepository userRepository;
 
     private static final int BLOCK_PAGE_NUM_COUNT = 5;
     private static final int PAGE_POST_COUNT = 4;
@@ -28,6 +30,7 @@ public class BoardService {
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
+                .user(board.getUser())
                 .writer(board.getWriter())
                 .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
@@ -61,6 +64,7 @@ public class BoardService {
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
+                .user(board.getUser())
                 .writer(board.getWriter())
                 .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
