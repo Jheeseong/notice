@@ -53,5 +53,6 @@ public class BoardTest {
 
         assertThat(board.getTitle()).isEqualTo(title);
         assertThat(board.getContent()).isEqualTo(content);
+        assertThat(board.getUser().getId()).isEqualTo(user.getId());
     }
 }
