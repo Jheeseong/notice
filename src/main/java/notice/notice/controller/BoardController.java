@@ -2,6 +2,10 @@ package notice.notice.controller;
 
 import lombok.RequiredArgsConstructor;
 import notice.notice.Dto.BoardDto;
+import notice.notice.config.auth.LoginUser;
+import notice.notice.config.auth.SessionUser;
+import notice.notice.domain.Role;
+import notice.notice.domain.User;
 import notice.notice.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +43,8 @@ public class BoardController {
     // 그 후에는 /list 경로로 리디렉션해준다.
 
     @PostMapping("/post")
-    public String write(BoardDto boardDto) {
+    public String write(@ModelAttribute BoardDto boardDto, @LoginUser SessionUser sessionUser) {
+
         boardService.savePost(boardDto);
         return "redirect:/board/list";
     }
