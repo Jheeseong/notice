@@ -3,6 +3,7 @@ package notice.notice.service;
 import lombok.AllArgsConstructor;
 import notice.notice.Dto.BoardDto;
 import notice.notice.domain.Board;
+import notice.notice.domain.User;
 import notice.notice.repository.BoardRepository;
 import notice.notice.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -74,7 +75,9 @@ public class BoardService {
     }
 
     @Transactional
-    public Long savePost(BoardDto boardDto) {
+    public Long savePost(BoardDto boardDto, Long id) {
+        User findUser = userRepository.findById(id).get();
+
         return boardRepository.save(boardDto.toEntity()).getId();
     }
 
