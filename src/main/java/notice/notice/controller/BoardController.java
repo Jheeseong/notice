@@ -43,10 +43,8 @@ public class BoardController {
     // 그 후에는 /list 경로로 리디렉션해준다.
     @PostMapping("/post")
     public String write(@ModelAttribute BoardDto boardDto, @LoginUser SessionUser sessionUser) {
-        User user = new User(sessionUser.getName(),sessionUser.getEmail(),sessionUser.getPicture(),Role.GUEST);
-        boardDto.setUser(user);
 
-        boardService.savePost(boardDto);
+        boardService.savePost(boardDto, sessionUser.getEmail());
         return "redirect:/board/list";
     }
 
@@ -75,7 +73,7 @@ public class BoardController {
 
     @PutMapping("/post/edit/{no}")
     public String update(BoardDto boardDTO, @LoginUser SessionUser sessionUser) {
-        boardService.savePost(boardDTO);
+        boardService.savePost(boardDTO, sessionUser.getEmail());
 
         return "redirect:/board/list";
     }

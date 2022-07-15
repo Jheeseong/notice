@@ -75,8 +75,10 @@ public class BoardService {
     }
 
     @Transactional
-    public Long savePost(BoardDto boardDto, Long id) {
-        User findUser = userRepository.findById(id).get();
+    public Long savePost(BoardDto boardDto, String email) {
+        User findUser = userRepository.findByEmail(email).get();
+
+        boardDto.setUser(findUser);
 
         return boardRepository.save(boardDto.toEntity()).getId();
     }
