@@ -35,7 +35,8 @@ public class BoardController {
     // 글쓰는 페이지
 
     @GetMapping("/post")
-    public String write() {
+    public String write(@LoginUser SessionUser user, Model model) {
+        model.addAttribute("writer", user.getName());
         return "board/write";
     }
 
