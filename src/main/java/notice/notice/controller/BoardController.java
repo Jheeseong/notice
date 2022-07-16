@@ -2,11 +2,13 @@ package notice.notice.controller;
 
 import lombok.RequiredArgsConstructor;
 import notice.notice.Dto.BoardDto;
+import notice.notice.Dto.CategoryDto;
 import notice.notice.config.auth.LoginUser;
 import notice.notice.config.auth.SessionUser;
 import notice.notice.domain.Role;
 import notice.notice.domain.User;
 import notice.notice.service.BoardService;
+import notice.notice.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CategoryService categoryService;
 
     @GetMapping({"", "/list"})
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
@@ -36,6 +39,10 @@ public class BoardController {
 
     @GetMapping("/post")
     public String write(@LoginUser SessionUser user, Model model) {
+
+        List<CategoryDto> categoryDtoList = categoryService.AllCategory();
+
+        model.addAttribute("categoryId", categoryDtoList);
         model.addAttribute("writer", user.getName());
         return "board/write";
     }

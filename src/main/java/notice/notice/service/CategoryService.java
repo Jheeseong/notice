@@ -28,6 +28,13 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
 
+    private CategoryDto convertEntityToDto(Category category) {
+        return CategoryDto.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .parentId(category.getParentId())
+                .build();
+    }
     @Transactional
     public CategoryDto createCategory() {
         Map<Long, List<CategoryDto>> groupingByParent = categoryRepository.findAll()
@@ -39,6 +46,21 @@ public class CategoryService {
         addSubCategories(rootCategoryDto, groupingByParent);
 
         return rootCategoryDto;
+    }
+
+    @Transactional
+    public List<CategoryDto> AllCategory() {
+        List<Category> categoryEntities = categoryRepository.findAll();
+        List<CategoryDto> categoryList = new ArrayList<>();
+
+        if (categoryEntities.isEmpty()) return categoryList;
+
+
+        for (Category category : categoryEntities) {
+            categoryList.add(this.convertEntityToDto(category));
+        }
+
+        return categoryList;
     }
 
     private void addSubCategories(CategoryDto parent, Map<Long, List<CategoryDto>> groupingByParentId) {

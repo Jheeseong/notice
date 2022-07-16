@@ -24,7 +24,7 @@ public class BoardDto {
 
     private User user;
 
-    private List<Category> categoryList;
+    private Long categoryId;
 
     private LocalDateTime createdDate;
 
@@ -35,7 +35,7 @@ public class BoardDto {
                 .id(id)
                 .writer(writer)
                 .title(title)
-                .categoryList(categoryList)
+                .categoryId(categoryId)
                 .content(content)
                 .user(user)
                 .build();
@@ -43,13 +43,13 @@ public class BoardDto {
     }
 
     @Builder
-    public BoardDto(Long id, String writer, String title, String content,User user, List<Category> categoryList,LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public BoardDto(Long id, String writer, String title, String content,User user, Long categoryId,LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
         this.user = user;
-        this.categoryList = categoryList;
+        this.categoryId = categoryId;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }

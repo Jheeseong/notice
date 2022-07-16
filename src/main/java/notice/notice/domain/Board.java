@@ -34,13 +34,11 @@ public class Board extends Time {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private List<Category> categoryList;
+    private Long categoryId;
 
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder
-    public Board(Long id, String title, String content, String writer, User user, List<Category> categoryList) {
+    public Board(Long id, String title, String content, String writer, User user, Long categoryId) {
         // Assert 구문으로 안전한 객체 생성 패턴을 구현
         Assert.hasText(writer, "writer must not be empty");
         Assert.hasText(title, "title must not be empty");
@@ -51,7 +49,7 @@ public class Board extends Time {
         this.title = title;
         this.content = content;
         this.user = user;
-        this.categoryList = categoryList;
+        this.categoryId = categoryId;
     }
 
 }
