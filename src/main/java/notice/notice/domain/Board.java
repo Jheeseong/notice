@@ -21,13 +21,13 @@ public class Board extends Time {
     @GeneratedValue(strategy= GenerationType.IDENTITY)  // PK의 생성 규칙
     private Long id;
 
-    @Column(length = 10, nullable = false)
+    //@Column(length = 10, nullable = false)
     private String writer;
 
-    @Column(length = 100, nullable = false)
+    //@Column(length = 100, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    //@Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
