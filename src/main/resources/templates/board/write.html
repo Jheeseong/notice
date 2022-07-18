@@ -25,18 +25,20 @@
         <h1>게시글 등록</h1>
     </div>
     <div class="starter-template">
-        <form class="form-horizontal" th:action="@{/board/post}" method="post">
+        <form class="form-horizontal" th:action="@{/board/post}" th:object="${boardDto}" method="post">
             <div class="form-group">
-                <label style="float: left" for="title" class="col-sm-2 control-label">제목</label>
+                <label style="float: left" th:for="title" class="col-sm-2 control-label">제목</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <input type="title" class="form-control" id="title" name="title" placeholder="제목"/>
+                    <input type="text" class="form-control" th:field="*{title}" placeholder="제목"/>
+                    <div th:if="${#fields.hasErrors('title')}" class="field-error" th:errors="*{title}"> 제목 오류</div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label style="float: left" for="writer" class="col-sm-2 control-label">작성자</label>
+                <label style="float: left" th:for="writer" class="col-sm-2 control-label">작성자</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <input type="text" class="form-control" id="writer" name="writer" th:value="${writer}" placeholder="작성자"/>
+                    <input type="text" class="form-control" th:field="*{writer}" readonly/>
+                    <div th:if="${#fields.hasErrors('writer')}" class="field-error" th:errors="*{writer}"> 작성자 오류</div>
                 </div>
             </div>
 
@@ -48,14 +50,17 @@
                         <option th:each="category : ${categoryId}"
                                 th:value="${category.id}"
                                 th:text="${category.name}"></option>
+                        <div th:if="${#fields.hasErrors('categoryId')}" class="field-error" th:errors="*{categoryId}"> 작성자 오류</div>
+
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label style="float: left" for="content" class="col-sm-2 control-label">내용</label>
+                <label style="float: left" th:for="content" class="col-sm-2 control-label">내용</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="content" name="content" placeholder="내용을 입력해 주세요."></textarea>
+                    <textarea class="form-control" th:field="*{content}" placeholder="내용을 입력해 주세요."></textarea>
+                    <div th:if="${#fields.hasErrors('content')}" class="field-error" th:errors="*{content}"> 내용 오류</div>
                 </div>
             </div>
 

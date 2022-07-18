@@ -1,24 +1,27 @@
 package notice.notice.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import notice.notice.Dto.BoardDto;
 import notice.notice.Dto.CategoryDto;
 import notice.notice.config.auth.LoginUser;
 import notice.notice.config.auth.SessionUser;
-import notice.notice.domain.Role;
-import notice.notice.domain.User;
 import notice.notice.service.BoardService;
 import notice.notice.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("board")
+@Slf4j
 public class BoardController {
 
     private final BoardService boardService;
@@ -42,15 +45,26 @@ public class BoardController {
 
         List<CategoryDto> categoryDtoList = categoryService.AllCategory();
 
+        BoardDto boardDto = new BoardDto();
+        boardDto.setWriter(user.getName());
+        model.addAttribute("boardDto", boardDto);
         model.addAttribute("categoryId", categoryDtoList);
-        model.addAttribute("writer", user.getName());
         return "board/write";
     }
 
     // 글을 쓴 뒤 POST 메서드로 글 쓴 내용을 DB에 저장
     // 그 후에는 /list 경로로 리디렉션해준다.
     @PostMapping("/post")
-    public String write(@ModelAttribute BoardDto boardDto, @LoginUser SessionUser sessionUser) {
+    public String write(@Valid BoardDto boardDto, BindingResult bindingResult, Model model,
+                        @LoginUser SessionUser sessionUser) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "board/write";
+        }
+
+        List<CategoryDto> categoryDtoList = categoryService.AllCategory();
+        model.addAttribute("categoryId", categoryDtoList);
 
         boardService.savePost(boardDto, sessionUser.getEmail());
         return "redirect:/board/list";
