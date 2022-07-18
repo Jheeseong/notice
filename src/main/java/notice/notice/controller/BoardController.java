@@ -58,13 +58,13 @@ public class BoardController {
     public String write(@Valid BoardDto boardDto, BindingResult bindingResult, Model model,
                         @LoginUser SessionUser sessionUser) {
 
+        List<CategoryDto> categoryDtoList = categoryService.AllCategory();
+        model.addAttribute("categoryId", categoryDtoList);
+
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "board/write";
         }
-
-        List<CategoryDto> categoryDtoList = categoryService.AllCategory();
-        model.addAttribute("categoryId", categoryDtoList);
 
         boardService.savePost(boardDto, sessionUser.getEmail());
         return "redirect:/board/list";
