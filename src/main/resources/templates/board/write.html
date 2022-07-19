@@ -6,18 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
-    <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-            integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-            crossorigin="anonymous"
-    />
-    <link href="css/jumbotron-narrow.css" rel="stylesheet" />
-
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <link   th:href="@{/css/jumbotron-narrow.css}"
+            href=".../css/jumbotron-narrow.css" rel="stylesheet">
     <title>게시판입니다.</title>
 </head>
-
 <body>
+
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('home')"></nav>
 
 <main class="container">
@@ -29,38 +27,40 @@
             <div class="form-group">
                 <label style="float: left" th:for="title" class="col-sm-2 control-label">제목</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <input type="text" class="form-control" th:field="*{title}" placeholder="제목"/>
-                    <div th:if="${#fields.hasErrors('title')}" class="field-error" th:errors="*{title}"> 제목 오류</div>
+                    <input type="text" th:field="*{title}"
+                           th:errorclass="field-error" class="form-control" placeholder="제목"/>
+                    <div class="field-error" th:errors="*{title}"> 제목 오류</div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label style="float: left" th:for="writer" class="col-sm-2 control-label">작성자</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <input type="text" class="form-control" th:field="*{writer}" readonly/>
-                    <div th:if="${#fields.hasErrors('writer')}" class="field-error" th:errors="*{writer}"> 작성자 오류</div>
+                    <input type="text" th:field="*{writer}"
+                           th:errorclass="field-error" class="form-control" readonly/>
+                    <div class="field-error" th:errors="*{writer}"> 작성자 오류</div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label style="float: left" th:for="categoryId" class="col-sm-2 control-label">카테고리</label>
                 <div class="col-sm-10" style="margin-top: 10px;">
-                    <select th:field="*{categoryId}" class="form-control">
+                    <select th:field="*{categoryId}" class="form-control" th:errorclass="field-error">
                         <option value="">카테고리 선택</option>
-                        <option th:each="category : ${categoryId}"
+                        <option th:each="category : ${categories}"
                                 th:value="${category.id}"
                                 th:text="${category.name}"></option>
-                        <div th:if="${#fields.hasErrors('Board.categoryId')}" class="field-error" th:errors="*{Board.categoryId}"> 카테고리 오류</div>
-
                     </select>
+                    <div class="field-error" th:errors="*{categoryId}"> 카테고리 오류</div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label style="float: left" th:for="content" class="col-sm-2 control-label">내용</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" th:field="*{content}" placeholder="내용을 입력해 주세요."></textarea>
-                    <div th:if="${#fields.hasErrors('content')}" class="field-error" th:errors="*{content}"> 내용 오류</div>
+                    <textarea class="form-control" th:field="*{content}"
+                              th:errorclass="field-error" placeholder="내용을 입력해 주세요."></textarea>
+                    <div class="field-error" th:errors="*{content}"> 내용 오류</div>
                 </div>
             </div>
 

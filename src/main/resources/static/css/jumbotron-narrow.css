@@ -35,6 +35,10 @@ body {
 .container-narrow > hr {
  margin: 30px 0;
 }
+.field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
 /* Main marketing message and sign up button */
 .jumbotron {
  text-align: center;

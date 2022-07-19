@@ -48,7 +48,7 @@ public class BoardController {
         BoardDto boardDto = new BoardDto();
         boardDto.setWriter(user.getName());
         model.addAttribute("boardDto", boardDto);
-        model.addAttribute("categoryId", categoryDtoList);
+        model.addAttribute("categories", categoryDtoList);
         return "board/write";
     }
 
@@ -59,7 +59,7 @@ public class BoardController {
                         @LoginUser SessionUser sessionUser) {
 
         List<CategoryDto> categoryDtoList = categoryService.AllCategory();
-        model.addAttribute("categoryId", categoryDtoList);
+        model.addAttribute("categories", categoryDtoList);
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
