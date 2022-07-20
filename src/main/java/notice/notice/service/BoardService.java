@@ -33,6 +33,7 @@ public class BoardService {
                 .content(board.getContent())
                 .user(board.getUser())
                 .writer(board.getWriter())
+                .categoryId(board.getCategoryId())
                 .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
                 .build();
@@ -54,6 +55,21 @@ public class BoardService {
         return boardDtoList;
     }
 
+    @Transactional
+    public List<BoardDto> getBoardCategoryList(Integer pageNum, Long categoryId) {
+        Page<Board> page = boardRepository.findByCategoryId(PageRequest.of(
+                pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createdDate")), categoryId);
+
+        List<Board> boardEntities = page.getContent();
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board board : boardEntities) {
+            boardDtoList.add(this.convertEntityToDto(board));
+        }
+
+        return boardDtoList;
+    }
+
 
 
     @Transactional
@@ -67,6 +83,7 @@ public class BoardService {
                 .content(board.getContent())
                 .user(board.getUser())
                 .writer(board.getWriter())
+                .categoryId(board.getCategoryId())
                 .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
                 .build();
