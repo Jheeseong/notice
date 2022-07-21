@@ -19,17 +19,22 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" th:classappend="${menu} == 'home'? 'active'">
+            <li class="nav-item active">
                 <a class="nav-link" href="#" th:href="@{/}">
                     홈
-                    <span class="sr-only" th:if="${menu} == 'home'">(current)</span>
+                    <span class="sr-only"(current)</span>
                 </a>
             </li>
-            <li class="nav-item" th:classappend="${menu} == 'board'? 'active'">
-                <a class="nav-link" href="#" th:href="@{/board/list}">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" th:href="@{/board/list}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     게시판
-                    <span class="sr-only" th:if="${menu} == 'board'">(current)</span>
                 </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#" th:href="@{/board/list}">All</a>
+                    <a class="dropdown-item" href="#" th:href="@{/board/list/1}">Q&A</a>
+                    <a class="dropdown-item" href="#" th:href="@{/board/list/2}">Community</a>
+                    <a class="dropdown-item" href="#" th:href="@{/board/list/3}">Forum</a>
+                </div>
             </li>
         </ul>
     </div>

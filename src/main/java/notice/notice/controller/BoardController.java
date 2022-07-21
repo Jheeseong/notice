@@ -38,7 +38,7 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/post/{category}")
+    @GetMapping("/list/{category}")
     public String categoryList(@PathVariable("category") Long categoryId, @RequestParam(value = "page", defaultValue = "1") Integer pageNum, Model model) {
         List<BoardDto> boardDtoList = boardService.getBoardCategoryList(pageNum, categoryId);
         Integer[] pageList = boardService.getPageList(pageNum);
