@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -33,8 +35,8 @@ public class User extends Time {
     private Role role;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-    private Board board;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Board> boards = new ArrayList<>();
 
     @Builder
     public User(String name, String email, String picture, Role role) {

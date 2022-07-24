@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name = "board")
 public class Board extends Time {
 
-    @Id // PK Field
+    @Id // PK
     @GeneratedValue(strategy= GenerationType.IDENTITY)  // PK의 생성 규칙
     private Long id;
 
@@ -30,7 +30,7 @@ public class Board extends Time {
     //@Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
