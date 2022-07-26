@@ -100,6 +100,7 @@ public class BoardService {
         return boardRepository.save(boardDto.toEntity()).getId();
     }
 
+
     @Transactional
     public void deletePost(Long id) {
         boardRepository.deleteById(id);
