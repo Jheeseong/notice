@@ -7,6 +7,24 @@ Spring 학습을 위한 1인 프로젝트 제작
 ## Backend architecture
 ### Routes 소개
 
+#### 게시판 홈페이지(board)
+
+      @GetMapping("/")
+      public String home(Model model, @LoginUser SessionUser user) {
+
+
+          if (user == null) {
+              return "home";
+          }
+
+          model.addAttribute("userName", user.getName());
+          model.addAttribute("userImg", user.getPicture());
+
+          return "loginHome";
+      }
+      
+- LoginSession 에노테이션을 통해 로그인 여부 파악 후 서로 다른 페이지를 전송
+
 #### 게시판 리스트(board/list)
 
       @GetMapping({"", "/list"})
@@ -101,6 +119,76 @@ Spring 학습을 위한 1인 프로젝트 제작
 - 게시물을 수정하는 페이지
 - @Build 에노테이션을 이용하여 setter 구현을 통해 생기는 불필요한 변경 가능성을 최소화
 
+      @PutMapping("/post/edit/{no}")
+      public String update(BoardDto boardDTO, @LoginUser SessionUser sessionUser) {
+          boardService.savePost(boardDTO, sessionUser.getEmail());
+
+          return "redirect:/board/list";
+      }
+
+- PUT 메서드를 이용해 게시물ㅇ 수정한 부분에 대해 적용
+- board/list 로 리다이렉션
+
+#### 게시물 삭제 페이지(board/post/1....)
+
+      @DeleteMapping("/post/{no}")
+      public String delete(@PathVariable("no") Long no) {
+          boardService.deletePost(no);
+
+          return "redirect:/board/list";
+      }
+      
+- DeletePost 메서드를 사용하여 게시물을 삭제
+- board/list 로 리 다이렉션
+
+#### 게시물 검색 페이지(board/search)
+
+      @GetMapping("/search")
+      public String search(@RequestParam(value="keyword") String keyword, Model model) {
+          List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
+
+          model.addAttribute("boardList", boardDtoList);
+
+          return "board/list";
+      }
+      
+- Keyword를 view로부터 전달 받은 후 Service로부터 받은 boardDtoList를 model의 attribute로 전달
+   
 ## - DB 설계
 
 ![image](https://user-images.githubusercontent.com/96407257/180646660-f90c4a2c-ec90-4dc2-8fc5-a31f5e5a4b78.png)
+
+## - 구조
+
+- Controller
+  - BoardController
+  - HomeController
+  
+- Domain
+  - Board
+  - Category
+  - User
+  
+- DTO
+  - BoardDto
+  - CategoryDto
+  - OAuthAttributes(Spring Security를 통한 구글 로그인)
+  
+- Repository
+  - BoardRepository
+  - CategoryRepository
+  - UserRepository
+  
+- Service
+  - BoardService
+  - CategoryService
+  - CustomOAuth2UserService(구글 로그인 서비스)
+  
+- View
+  - home(홈 화면)
+  - loginHome(로그인 홈 화면)
+  - write(게시글 작성)
+  - list(게시글 리스트)
+  - update(게시글 수정)
+  - detail(게시글 내용)
+  - categoryList(게시글 카테고리별 분류)
