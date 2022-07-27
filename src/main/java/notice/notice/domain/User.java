@@ -38,8 +38,16 @@ public class User extends Time {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Comment> commentList = new ArrayList<>();
+
+    public void mappingComment(Comment comment) {
+        commentList.add(comment);
+    }
+
     @Builder
     public User(String name, String email, String picture, Role role) {
+
         this.name = name;
         this.email = email;
         this.picture = picture;

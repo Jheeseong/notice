@@ -36,6 +36,13 @@ public class Board extends Time {
 
     private Long categoryId;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
+    private List<Comment> commentList = new ArrayList<>();
+
+    public void mappingComment(Comment comment) {
+        this.commentList.add(comment);
+    }
+
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder
     public Board(Long id, String title, String content, String writer, User user, Long categoryId) {
