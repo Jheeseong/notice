@@ -4,6 +4,7 @@ package notice.notice.controller;
 import com.nimbusds.oauth2.sdk.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import notice.notice.Dto.CommentDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
