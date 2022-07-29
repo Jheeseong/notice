@@ -27,7 +27,7 @@ public class Comment {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_board_comment"))
     private User user;
 
-    public Comment(Board board, User user) {
+    public void mappingPostAndUser(Board board, User user) {
         this.board = board;
         this.user = user;
 
