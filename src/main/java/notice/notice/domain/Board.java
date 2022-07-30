@@ -36,7 +36,7 @@ public class Board extends Time {
 
     private Long categoryId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
     public void mappingComment(Comment comment) {
@@ -45,7 +45,7 @@ public class Board extends Time {
 
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder
-    public Board(Long id, String title, String content, String writer, User user, Long categoryId) {
+    public Board(Long id, String title, String content, String writer, User user, Long categoryId, List<Comment> commentList) {
         // Assert 구문으로 안전한 객체 생성 패턴을 구현
         Assert.hasText(writer, "writer must not be empty");
         Assert.hasText(title, "title must not be empty");
@@ -57,6 +57,7 @@ public class Board extends Time {
         this.content = content;
         this.user = user;
         this.categoryId = categoryId;
+        this.commentList = commentList;
     }
 
 }

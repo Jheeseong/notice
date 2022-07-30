@@ -3,6 +3,7 @@ package notice.notice.Dto;
 import lombok.*;
 import notice.notice.domain.Category;
 import notice.notice.domain.Board;
+import notice.notice.domain.Comment;
 import notice.notice.domain.User;
 
 import javax.validation.constraints.NotBlank;
@@ -35,6 +36,8 @@ public class BoardDto {
     @NotNull(message = "카테고리를 선택해주세요.")
     private Long categoryId;
 
+    private List<Comment> commentList;
+
     private LocalDateTime createdDate;
 
     private LocalDateTime modifiedDate;
@@ -47,6 +50,7 @@ public class BoardDto {
                 .categoryId(categoryId)
                 .content(content)
                 .user(user)
+                .commentList(commentList)
                 .build();
         return board;
     }

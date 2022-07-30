@@ -24,7 +24,7 @@ public class CommentController {
     private final CommentService commentService;
     @PostMapping("/post/{no}/comment")
     public String createComment(@PathVariable(name = "no") Long boardId,
-                                                 @Valid @RequestBody CommentDto commentDto,
+                                                 @Valid CommentDto commentDto,
                                                  Principal principal) {
         commentService.createComment(boardId, commentDto, principal.getName());
 

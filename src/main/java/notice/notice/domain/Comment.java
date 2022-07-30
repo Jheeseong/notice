@@ -20,11 +20,11 @@ public class Comment {
     private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id", foreignKey = @ForeignKey(name = "FK_user_comment"))
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_board_comment"))
+    @JoinColumn(name = "user_id")
     private User user;
 
     public void mappingPostAndUser(Board board, User user) {
@@ -33,5 +33,12 @@ public class Comment {
 
         board.mappingComment(this);
         user.mappingComment(this);
+    }
+
+    @Builder
+    public Comment(String contents, Board board, User user) {
+        this.contents = contents;
+        this.board = board;
+        this.user = user;
     }
 }

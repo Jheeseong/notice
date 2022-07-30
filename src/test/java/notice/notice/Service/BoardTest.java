@@ -2,9 +2,11 @@ package notice.notice.Service;
 
 import notice.notice.Dto.BoardDto;
 import notice.notice.domain.Board;
+import notice.notice.domain.Comment;
 import notice.notice.domain.Role;
 import notice.notice.domain.User;
 import notice.notice.repository.BoardRepository;
+import notice.notice.repository.CommentRepository;
 import notice.notice.service.BoardService;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,9 @@ public class BoardTest {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @Autowired
     BoardService boardService;
@@ -116,4 +121,40 @@ public class BoardTest {
         assertThat(board.getContent()).isEqualTo(content1);
         assertThat(board.getCategoryId()).isEqualTo(1L);
     }
+
+    @Test
+    public void 댓글조회() throws Exception {
+        //given
+        String title = "asdf";
+        String content = "adfa";
+        String writer = "adfas";
+
+        User user = new User("adfa", "@gmail.com","asfas", Role.USER);
+
+        Board board = Board.builder()
+                .title(title)
+                .content(content)
+                .writer(writer)
+                .user(user)
+                .build();
+
+        Comment comment = new Comment("test", board, user);
+
+        commentRepository.save(comment);
+        //when
+        List<BoardDto> boardList = boardService.getBoardCategoryList(1, 1L);
+        //then
+        for (BoardDto boardDto : boardList) {
+            System.out.println(boardDto);
+        }
+
+        BoardDto boardDto = boardList.get(0);
+
+        assertThat(boardDto.getTitle()).isEqualTo(title);
+        assertThat(boardDto.getContent()).isEqualTo(content);
+        assertThat(boardDto.getCommentList().get(0)).isEqualTo(comment);
+
+
+    }
+
 }
