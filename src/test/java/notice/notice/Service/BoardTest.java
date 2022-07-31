@@ -8,6 +8,7 @@ import notice.notice.domain.User;
 import notice.notice.repository.BoardRepository;
 import notice.notice.repository.CommentRepository;
 import notice.notice.service.BoardService;
+import notice.notice.service.CommentService;
 import org.junit.After;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,9 @@ public class BoardTest {
 
     @Autowired
     BoardService boardService;
+
+    @Autowired
+    CommentService commentService;
 
     @After
     public void cleanup() {
@@ -131,28 +135,30 @@ public class BoardTest {
 
         User user = new User("adfa", "@gmail.com","asfas", Role.USER);
 
-        Board board = Board.builder()
+        Board board = boardRepository.save(Board.builder()
                 .title(title)
                 .content(content)
                 .writer(writer)
                 .user(user)
-                .build();
+                .build());
 
         Comment comment = new Comment("test", board, user);
 
         commentRepository.save(comment);
         //when
-        List<BoardDto> boardList = boardService.getBoardCategoryList(1, 1L);
-        //then
-        for (BoardDto boardDto : boardList) {
-            System.out.println(boardDto);
+        List<Comment> all = commentRepository.findAll();
+
+        boardRepository.findAll();
+        // then
+        for (Comment cmt : all) {
+            System.out.println("board=" + cmt.toString());
         }
 
-        BoardDto boardDto = boardList.get(0);
+        Comment cmt = all.get(0);
 
-        assertThat(boardDto.getTitle()).isEqualTo(title);
-        assertThat(boardDto.getContent()).isEqualTo(content);
-        assertThat(boardDto.getCommentList().get(0)).isEqualTo(comment);
+        assertThat(cmt.getBoard().getTitle()).isEqualTo(title);
+        assertThat(cmt.getBoard().getContent()).isEqualTo(content);
+        assertThat(cmt.getUser()).isEqualTo(user);
 
 
     }

@@ -36,7 +36,7 @@ public class Board extends Time {
 
     private Long categoryId;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
     public void mappingComment(Comment comment) {
