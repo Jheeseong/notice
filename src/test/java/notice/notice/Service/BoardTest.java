@@ -127,6 +127,7 @@ public class BoardTest {
     }
 
     @Test
+    @Transactional
     public void 댓글조회() throws Exception {
         //given
         String title = "asdf";
