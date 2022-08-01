@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "comment")
-public class Comment {
+public class Comment extends Time{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

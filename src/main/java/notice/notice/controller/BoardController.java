@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import notice.notice.Dto.BoardDto;
 import notice.notice.Dto.CategoryDto;
+import notice.notice.Dto.CommentDto;
 import notice.notice.config.auth.LoginUser;
 import notice.notice.config.auth.SessionUser;
+import notice.notice.domain.Comment;
 import notice.notice.service.BoardService;
 import notice.notice.service.CategoryService;
+import notice.notice.service.CommentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +29,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CategoryService categoryService;
+    private final CommentService commentService;
 
     @GetMapping({"", "/list"})
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
@@ -88,6 +92,12 @@ public class BoardController {
     @GetMapping("/post/{no}")
     public String detail(@PathVariable("no") Long no, Model model) {
         BoardDto boardDTO = boardService.getPost(no);
+        List<CommentDto> commentDtoList = commentService.getCommentList(boardDTO);
+
+        //댓글 관련
+        if (commentDtoList != null && !commentDtoList.isEmpty()) {
+            model.addAttribute("comments", commentDtoList);
+        }
 
         model.addAttribute("boardDto", boardDTO);
         return "board/detail";

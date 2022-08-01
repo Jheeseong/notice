@@ -5,6 +5,8 @@ import com.nimbusds.oauth2.sdk.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import notice.notice.Dto.CommentDto;
+import notice.notice.config.auth.LoginUser;
+import notice.notice.config.auth.SessionUser;
 import notice.notice.service.CommentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +26,9 @@ public class CommentController {
     private final CommentService commentService;
     @PostMapping("/post/{no}/comment")
     public String createComment(@PathVariable(name = "no") Long boardId,
-                                                 @Valid CommentDto commentDto,
-                                                 Principal principal) {
-        commentService.createComment(boardId, commentDto, principal.getName());
+                                @RequestBody CommentDto commentDto,
+                                @LoginUser SessionUser user) {
+        commentService.createComment(boardId, commentDto, user.getEmail());
 
         return "board/list";
     }
