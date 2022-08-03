@@ -13,9 +13,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Data
+@NoArgsConstructor
 @Builder
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentDto {
 
     private Long id;

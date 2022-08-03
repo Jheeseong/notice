@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
-    <link href="css/jumbotron-narrow.css" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <link   th:href="@{/css/jumbotron-narrow.css}"
+            href=".../css/jumbotron-narrow.css" rel="stylesheet">
 
     <title>detail</title>
 </head>
@@ -16,11 +20,13 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:replace="fragments/common :: menu('home')"></nav>
 
 <main role="main" class="container">
+    <div class="page-header">
+        <h1>게시글</h1>
+    </div>
     <div class="starter-template">
 
         <table class ="table table-bordered">
             <thead>
-            <caption>글 읽기</caption>
             </thead>
             <tbody>
             <tr>
@@ -44,7 +50,7 @@
         </table>
 
         <!-- 수정/삭제 -->
-        <div>
+        <div class="box-footer">
             <a th:href="@{'/board/post/edit/' + ${boardDto.id}}">
                 <button class="btn btn-primary">수정</button>
             </a>
@@ -53,12 +59,8 @@
                 <button class="btn btn-warning" id="delete-btn">삭제</button>
             </form>
         </div>
-        
-
-        <!-- script -->
-        <script th:inline="javascript" th:src="@{/js/board.js}"></script>
-
     </div>
+
     <div class="card">
         <div class="card-header">댓글</div>
         <ul id="reply--box" class="list-group">
