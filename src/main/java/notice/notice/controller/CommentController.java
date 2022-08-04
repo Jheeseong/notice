@@ -19,12 +19,12 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("comment")
+@RequestMapping("board")
 @Slf4j
 public class CommentController {
 
     private final CommentService commentService;
-    @PostMapping("/post/{no}/comment")
+    @PostMapping("/post/comment/{no}")
     public String createComment(@PathVariable(name = "no") Long boardId,
                                 @RequestBody CommentDto commentDto,
                                 @LoginUser SessionUser user) {

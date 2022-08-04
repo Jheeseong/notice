@@ -48,6 +48,9 @@ public class CommentService {
 
     @Transactional
     public List<CommentDto> getCommentList(BoardDto boardDto) {
+        if (boardDto.getCommentList() == null) {
+            return null;
+        }
         List<Comment> commentList = boardDto.getCommentList();
         List<CommentDto> commentDtoList = new ArrayList<>();
 
