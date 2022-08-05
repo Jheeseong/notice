@@ -30,6 +30,6 @@ public class CommentController {
                                 @LoginUser SessionUser user) {
         commentService.createComment(boardId, commentDto, user.getEmail());
 
-        return "board/list";
+        return "redirect:/board/detail";
     }
 }
