@@ -17,8 +17,6 @@ let replyIndex = {
         $.ajax({
             type: "POST",
             url: `/board/post/comment/${boardDtoId}`,
-            data: JSON.stringify(data),
-            contentType: "application/json; charset=utf-8",
             dataType: "text"
         }).done(function (res) {
             alert("댓글작성이 완료되었습니다.");
