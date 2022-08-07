@@ -153,6 +153,22 @@ Spring 학습을 위한 1인 프로젝트 제작
       }
       
 - Keyword를 view로부터 전달 받은 후 Service로부터 받은 boardDtoList를 model의 attribute로 전달
+
+#### ㄷㅅ글 작성 ㅔ이지
+
+      public class CommentController {
+
+          private final CommentService commentService;
+         @PostMapping("/post/comment/{no}")
+          public String createComment(@PathVariable(name = "no") Long boardId,
+                                      @RequestBody CommentDto commentDto,
+                                      @LoginUser SessionUser user) {
+              commentService.createComment(boardId, commentDto, user.getEmail());
+
+              return "redirect:/board/detail";
+          }
+      }
+     
    
 ## - DB 설계
 
