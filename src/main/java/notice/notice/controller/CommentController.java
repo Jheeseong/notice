@@ -25,11 +25,9 @@ public class CommentController {
 
     private final CommentService commentService;
     @PostMapping("/post/comment/{no}")
-    public String createComment(@PathVariable(name = "no") Long boardId,
+    public void createComment(@PathVariable(name = "no") Long boardId,
                                 @RequestBody CommentDto commentDto,
                                 @LoginUser SessionUser user) {
         commentService.createComment(boardId, commentDto, user.getEmail());
-
-        return "redirect:/board/detail";
     }
 }

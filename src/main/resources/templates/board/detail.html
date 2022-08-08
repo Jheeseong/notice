@@ -112,12 +112,14 @@
         let data = {
             content: $("#reply-content").val(),
         }
-        let boardDtoId = $("#boardId").val();
+        let boardId = $("#boardId").val();
         console.log(data);
-        console.log(boardDtoId);
+        console.log(boardId);
         $.ajax({
             type: "POST",
             url: `/board/post/comment/${boardId}`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
             dataType: "text"
         }).done(function (res) {
             alert("댓글작성이 완료되었습니다.");
