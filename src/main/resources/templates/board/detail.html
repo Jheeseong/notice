@@ -63,11 +63,11 @@
         <div class="card">
             <div class="card-header">댓글</div>
             <ul id="reply--box" class="list-group" th:each="comment : ${boardDto.commentList}">
-                <li id="reply--1" class="list-group-item d-flex justify-content-between">
-                    <div th:text="${commentDto.contents}"></div>
+                <li th:id="'reply--' + ${comment.id}" class="list-group-item d-flex justify-content-between">
+                    <div th:text="${comment.contents}"></div>
                     <div class="d-flex">
                         <span class="text-monospace mr-1">작성자: </span>
-                        <div class="text-monospace mr-1" th:text="${commentDto.user.name}"></div>
+                        <div class="text-monospace mr-1" th:text="${comment.user.name}"></div>
                         <button class="badge btn-warning">수정</button><span> | </span>
                         <button class="badge btn-danger">삭제</button>
                     </div>
@@ -85,7 +85,7 @@
                     <input type="hidden" id="boardId" th:value="${boardDto.id}">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <textarea class="form-control" id="reply-content" rows="1"></textarea>
+                            <textarea class="form-control" id="comment-contents" rows="1"></textarea>
                             <button id="reply-btn-save" type="button" class="btn btn-dark mt-3">등록</button>
                         </li>
                     </ul>

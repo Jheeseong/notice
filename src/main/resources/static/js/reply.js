@@ -7,7 +7,7 @@ let replyIndex = {
 
     replySave: function () {
         let data = {
-            content: $("#reply-content").val(),
+            contents: $("#comment-contents").val(),
         }
         let boardId = $("#boardId").val();
         console.log(data);
