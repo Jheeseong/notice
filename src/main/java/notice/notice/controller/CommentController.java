@@ -1,7 +1,6 @@
 package notice.notice.controller;
 
 
-import com.nimbusds.oauth2.sdk.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import notice.notice.Dto.CommentDto;
@@ -14,20 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.security.Principal;
-
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("board")
 @Slf4j
 public class CommentController {
 
     private final CommentService commentService;
-    @PostMapping("/post/comment/{no}")
-    public void createComment(@PathVariable(name = "no") Long boardId,
+
+    @PostMapping("/board/post/{no}/comment")
+    public String createComment(@PathVariable("no") Long boardId,
                                 @RequestBody CommentDto commentDto,
                                 @LoginUser SessionUser user) {
         commentService.createComment(boardId, commentDto, user.getEmail());
+        log.info("save comment");
+
+        return "redirect:/";
     }
 }

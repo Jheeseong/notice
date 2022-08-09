@@ -1,5 +1,3 @@
-'use strict';
-
 let replyIndex = {
     init: function () {
         $("#reply-btn-save").on("click", () => {
@@ -11,16 +9,18 @@ let replyIndex = {
         let data = {
             content: $("#reply-content").val(),
         }
-        let boardDtoId = $("#boardDtoId").val();
+        let boardId = $("#boardId").val();
         console.log(data);
-        console.log(boardDtoId);
+        console.log(boardId);
         $.ajax({
             type: "POST",
-            url: `/board/post/comment/${boardDtoId}`,
+            url: `/board/post/${boardId}/comment`,
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
             dataType: "text"
         }).done(function (res) {
             alert("댓글작성이 완료되었습니다.");
-            location.href = `/board/post/${boardDtoId}`;
+            location.href = `/board/post/${boardId}`;
         }).fail(function (err) {
             alert(JSON.stringify(err));
         });

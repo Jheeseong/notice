@@ -1,5 +1,6 @@
 package notice.notice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import notice.notice.domain.Category;
@@ -36,12 +37,10 @@ public class Board extends Time {
 
     private Long categoryId;
 
+    @OrderBy("id desc")
+    @JsonIgnoreProperties({"board"})
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
-
-    public void mappingComment(Comment comment) {
-        this.commentList.add(comment);
-    }
 
     // Java 디자인 패턴, 생성 시점에 값을 채워줌
     @Builder

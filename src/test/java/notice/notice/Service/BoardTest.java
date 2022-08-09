@@ -1,6 +1,7 @@
 package notice.notice.Service;
 
 import notice.notice.Dto.BoardDto;
+import notice.notice.Dto.CommentDto;
 import notice.notice.domain.Board;
 import notice.notice.domain.Comment;
 import notice.notice.domain.Role;
@@ -136,16 +137,21 @@ public class BoardTest {
 
         User user = new User("adfa", "@gmail.com","asfas", Role.USER);
 
-        Board board = boardRepository.save(Board.builder()
+        BoardDto board = BoardDto.builder()
                 .title(title)
                 .content(content)
                 .writer(writer)
                 .user(user)
-                .build());
+                .build();
 
-        Comment comment = new Comment("test", board, user);
+        Long savePost = boardService.savePost(board, "@gmail.com");
 
-        commentRepository.save(comment);
+        CommentDto commentDto = CommentDto.builder()
+                .contents("asdfa")
+                .build();
+
+        commentService.createComment(savePost, commentDto, "@gmail.com");
+
         //when
         List<Comment> all = commentRepository.findAll();
 
@@ -159,7 +165,7 @@ public class BoardTest {
 
         assertThat(cmt.getBoard().getTitle()).isEqualTo(title);
         assertThat(cmt.getBoard().getContent()).isEqualTo(content);
-        assertThat(cmt.getUser()).isEqualTo(user);
+        assertThat(cmt.getContents()).isEqualTo("asdfa");
 
 
     }

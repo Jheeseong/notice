@@ -27,13 +27,6 @@ public class Comment extends Time{
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void mappingPostAndUser(Board board, User user) {
-        this.board = board;
-        this.user = user;
-
-        board.mappingComment(this);
-        user.mappingComment(this);
-    }
 
     @Builder
     public Comment(String contents, Board board, User user) {
