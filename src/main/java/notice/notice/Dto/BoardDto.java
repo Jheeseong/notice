@@ -56,13 +56,14 @@ public class BoardDto {
     }
 
     @Builder
-    public BoardDto(Long id, String writer, String title, String content,User user, Long categoryId,LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public BoardDto(Long id, String writer, String title, String content,User user, Long categoryId,List<Comment> commentList,LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
         this.user = user;
         this.categoryId = categoryId;
+        this.commentList = commentList;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }

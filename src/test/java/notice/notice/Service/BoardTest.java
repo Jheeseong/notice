@@ -153,15 +153,14 @@ public class BoardTest {
         commentService.createComment(savePost, commentDto, "@gmail.com");
 
         //when
-        List<Comment> all = commentRepository.findAll();
-
-        boardRepository.findAll();
+        BoardDto post = boardService.getPost(savePost);
+        List<CommentDto> commentList = commentService.getCommentList(post);
         // then
-        for (Comment cmt : all) {
+        for (CommentDto cmt : commentList) {
             System.out.println("board=" + cmt.toString());
         }
 
-        Comment cmt = all.get(0);
+        CommentDto cmt = commentList.get(0);
 
         assertThat(cmt.getBoard().getTitle()).isEqualTo(title);
         assertThat(cmt.getBoard().getContent()).isEqualTo(content);

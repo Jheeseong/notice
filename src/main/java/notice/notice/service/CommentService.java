@@ -42,16 +42,15 @@ public class CommentService {
         commentDto.setBoard(board);
         commentDto.setUser(user);
 
+
         return commentRepository.save(commentDto.toEntity()).getId();
 
     }
 
     @Transactional
     public List<CommentDto> getCommentList(BoardDto boardDto) {
-        if (boardDto.getCommentList() == null) {
-            return null;
-        }
-        List<Comment> commentList = boardDto.getCommentList();
+
+        List<Comment> commentList = commentRepository.findByBoardId(boardDto.getId());
         List<CommentDto> commentDtoList = new ArrayList<>();
 
         for (Comment comment : commentList) {

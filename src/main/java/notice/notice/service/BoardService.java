@@ -34,6 +34,7 @@ public class BoardService {
                 .user(board.getUser())
                 .writer(board.getWriter())
                 .categoryId(board.getCategoryId())
+                .commentList(board.getCommentList())
                 .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
                 .build();
@@ -84,6 +85,7 @@ public class BoardService {
                 .user(board.getUser())
                 .writer(board.getWriter())
                 .categoryId(board.getCategoryId())
+                .commentList(board.getCommentList())
                 .createdDate(board.getCreatedDate())
                 .modifiedDate(board.getModifiedDate())
                 .build();

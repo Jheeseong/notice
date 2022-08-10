@@ -33,5 +33,6 @@ public class Comment extends Time{
         this.contents = contents;
         this.board = board;
         this.user = user;
+        this.board.getCommentList().add(this);
     }
 }

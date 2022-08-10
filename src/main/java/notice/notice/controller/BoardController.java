@@ -96,7 +96,7 @@ public class BoardController {
 
         //댓글 관련
         if (commentDtoList != null && !commentDtoList.isEmpty()) {
-            model.addAttribute("comments", commentDtoList);
+            model.addAttribute("commentList", commentDtoList);
         }
 
         model.addAttribute("boardDto", boardDTO);

@@ -62,7 +62,7 @@
 
         <div class="card">
             <div class="card-header">댓글</div>
-            <ul id="reply--box" class="list-group" th:each="comment : ${boardDto.commentList}">
+            <ul id="reply--box" class="list-group" th:each="comment : ${commentList}">
                 <li th:id="'reply--' + ${comment.id}" class="list-group-item d-flex justify-content-between">
                     <div th:text="${comment.contents}"></div>
                     <div class="d-flex">
