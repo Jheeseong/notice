@@ -158,18 +158,52 @@ Spring 학습을 위한 1인 프로젝트 제작
 
       public class CommentController {
 
-          private final CommentService commentService;
-         @PostMapping("/post/comment/{no}")
-          public String createComment(@PathVariable(name = "no") Long boardId,
-                                      @RequestBody CommentDto commentDto,
-                                      @LoginUser SessionUser user) {
-              commentService.createComment(boardId, commentDto, user.getEmail());
+        private final CommentService commentService;
 
-              return "redirect:/board/detail";
-          }
-      }
+        @PostMapping("/board/post/{no}/comment")
+        public String createComment(@PathVariable("no") Long boardId,
+                                    @RequestBody CommentDto commentDto,
+                                    @LoginUser SessionUser user) {
+            commentService.createComment(boardId, commentDto, user.getEmail());
+            log.info(commentDto.getContents());
+
+            return "redirect:/";
+        }
+    }
      
-   
+- @RequestBody를 통해 json 형태로 데이터를 받음
+- @PathVariable을 통해 해당 보드의 id를 받음
+- Post 매핑을 하여 데이터 전송 후 리다이렉트
+ 
+#### 로그인세션 에노테이션 설정
+
+      @Target(ElementType.PARAMETER)
+      @Retention(RetentionPolicy.RUNTIME)
+      public @interface LoginUser {
+      }
+      
+      public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
+
+        private final HttpSession httpSession;
+
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
+            log.info("supportsParameter 실행");
+            boolean hasLoginAnnotation = parameter.hasParameterAnnotation(LoginUser.class);
+            boolean hasUserType = SessionUser.class.isAssignableFrom(parameter.getParameterType());
+
+            return hasLoginAnnotation && hasUserType;
+        }
+
+        @Override
+        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+            log.info("resolverArgument 실행");
+            return httpSession.getAttribute("user");
+        }
+    }
+    
+- @LoginUser 에노테이션으로 설정하여 로그인 유저의 데이터 필요 시 사용 가능
+
 ## - DB 설계
 
 ![image](https://user-images.githubusercontent.com/96407257/180646660-f90c4a2c-ec90-4dc2-8fc5-a31f5e5a4b78.png)
