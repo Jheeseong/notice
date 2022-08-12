@@ -206,8 +206,7 @@ Spring 학습을 위한 1인 프로젝트 제작
 
 ## - DB 설계
 
-![image](https://user-images.githubusercontent.com/96407257/180646660-f90c4a2c-ec90-4dc2-8fc5-a31f5e5a4b78.png)
-
+![게시판](https://user-images.githubusercontent.com/96407257/184339870-4f3304ab-ce93-417b-9682-07076045698e.png)
 ## - 구조
 
 - Controller
