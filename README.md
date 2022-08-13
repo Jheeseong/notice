@@ -204,6 +204,43 @@ Spring 학습을 위한 1인 프로젝트 제작
     
 - @LoginUser 에노테이션으로 설정하여 로그인 유저의 데이터 필요 시 사용 가능
 
+#### reply.js
+
+    let replyIndex = {
+        init: function () {
+            $("#reply-btn-save").on("click", () => {
+                this.replySave();
+            });
+        },
+
+        replySave: function () {
+            let data = {
+                contents: $("#comment-contents").val(),
+            }
+            let boardId = $("#boardId").val();
+            console.log(data);
+            console.log(boardId);
+            $.ajax({
+                type: "POST",
+                url: `/board/post/${boardId}/comment`,
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "text"
+            }).done(function (res) {
+                alert("댓글작성이 완료되었습니다.");
+                location.href = `/board/post/${boardId}`;
+            }).fail(function (err) {
+                alert(JSON.stringify(err));
+            });
+        },
+
+    }
+    replyIndex.init();
+    
+- detail view에서 댓글 작성 시 동적 뷰 설정
+- 버튼 클릭 시 POST 매핑으로 댓글 내용을 DB에 저장 후 redirect
+- 댓글 확인 가능
+
 ## - DB 설계
 
 ![게시판](https://user-images.githubusercontent.com/96407257/184339870-4f3304ab-ce93-417b-9682-07076045698e.png)
