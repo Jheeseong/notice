@@ -212,25 +212,32 @@ Spring 학습을 위한 1인 프로젝트 제작
 - Controller
   - BoardController
   - HomeController
+  - CommentController
   
 - Domain
   - Board
   - Category
   - User
+  - Comment
+  - Role
+  - Time
   
 - DTO
   - BoardDto
   - CategoryDto
+  - CommentDto
   - OAuthAttributes(Spring Security를 통한 구글 로그인)
   
 - Repository
   - BoardRepository
   - CategoryRepository
   - UserRepository
+  - CommentRepository
   
 - Service
   - BoardService
   - CategoryService
+  - CommentService
   - CustomOAuth2UserService(구글 로그인 서비스)
   
 - View
