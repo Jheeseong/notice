@@ -4,6 +4,8 @@ import lombok.*;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,6 +29,14 @@ public class Comment extends Time{
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Comment parent;
+
+    private int cnt;
+
+    @OneToMany(mappedBy = "parent")
+    private List<Comment> childList = new ArrayList<>();
 
     @Builder
     public Comment(String contents, Board board, User user) {

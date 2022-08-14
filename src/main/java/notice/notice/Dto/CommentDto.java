@@ -29,6 +29,8 @@ public class CommentDto {
 
     private LocalDateTime createdTime;
 
+    private int cnt;
+
     public Comment toEntity() {
         Comment comment = Comment.builder()
                 .id(id)
